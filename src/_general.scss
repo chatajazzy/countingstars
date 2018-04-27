@@ -1,0 +1,22 @@
+.numbers {
+  text-align: center;
+}
+.numbers,
+.answer {
+  span {
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    background: gray;
+    border-radius: 50%;
+    &.selected,
+    &.used {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    &.used {
+      background: green;
+    }
+  }
+}
