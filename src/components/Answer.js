@@ -3,8 +3,7 @@ import React from 'react';
 const Answer = props => {
   return (
     <div>
-      <span>2</span>
-      <span>4</span>
+      {props.selectedNumbers.map((number, i) => <span key={i}>{number}</span>)}
     </div>
   );
 };

@@ -5,6 +5,9 @@ import Answer from './Answer';
 import Numbers from './Numbers';
 
 export default class Game extends Component {
+  state = {
+    selectedNumbers: []
+  };
   render() {
     return (
       <div>
@@ -12,9 +15,9 @@ export default class Game extends Component {
         <div className="game__top">
           <Stars />
           <Button />
-          <Answer />
+          <Answer selectedNumbers={this.state.selectedNumbers} />
         </div>
-        <Numbers />
+        <Numbers selectedNumbers={this.state.selectedNumbers} />
       </div>
     );
   }
