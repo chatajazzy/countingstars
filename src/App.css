@@ -17,12 +17,12 @@
   background: gray;
   border-radius: 50%;
 }
-.selected {
+span.selected {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.used {
+span.used {
   opacity: 0.5;
   background: green;
   cursor: not-allowed;

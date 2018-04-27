@@ -4,7 +4,11 @@ const Button = props => {
   let button;
   switch (props.isAnswerCorrect) {
     case true:
-      button = <button className="btn btn-correct">correct</button>;
+      button = (
+        <button className="btn btn-correct" onClick={props.acceptAnswer}>
+          correct
+        </button>
+      );
       break;
     case false:
       button = <button className="btn btn-incorrect">incorrect</button>;
