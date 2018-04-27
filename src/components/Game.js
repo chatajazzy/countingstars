@@ -6,18 +6,31 @@ import Numbers from './Numbers';
 
 export default class Game extends Component {
   state = {
-    selectedNumbers: []
+    selectedNumbers: [],
+    randomNumberOfStars: Math.floor(Math.random() * 9)
+  };
+  selectNumber = clickedNumber => {
+    // depends on the pervious state
+    if (this.state.selectedNumbers.length === 2) {
+      return;
+    }
+    this.setState(prevState => ({
+      selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
+    }));
   };
   render() {
     return (
       <div>
         <h3>Play a game</h3>
         <div className="game__top">
-          <Stars />
+          <Stars randomNumberOfStars={this.state.randomNumberOfStars} />
           <Button />
           <Answer selectedNumbers={this.state.selectedNumbers} />
         </div>
-        <Numbers selectedNumbers={this.state.selectedNumbers} />
+        <Numbers
+          selectedNumbers={this.state.selectedNumbers}
+          selectNumber={this.selectNumber}
+        />
       </div>
     );
   }
