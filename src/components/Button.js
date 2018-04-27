@@ -1,11 +1,27 @@
 import React from 'react';
 
 const Button = props => {
-  return (
-    <div>
-      <button disabled={props.selectedNumbers.length === 0}>=</button>
-    </div>
-  );
+  let button;
+  switch (props.isAnswerCorrect) {
+    case true:
+      button = <button className="btn btn-correct">correct</button>;
+      break;
+    case false:
+      button = <button className="btn btn-incorrect">incorrect</button>;
+      break;
+    default:
+      button = (
+        <button
+          className="btn"
+          onClick={props.checkAnswer}
+          disabled={props.selectedNumbers.length === 0}
+        >
+          check
+        </button>
+      );
+      break;
+  }
+  return <div>{button}</div>;
 };
 
 export default Button;
