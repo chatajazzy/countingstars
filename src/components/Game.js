@@ -35,14 +35,16 @@ var possibleCombinationSum = function(arr, n) {
 
 export default class Game extends Component {
   static randomNumber = () => 1 + Math.floor(Math.random() * 9);
-  state = {
+  static initialState = () => ({
     selectedNumbers: [],
     randomNumberOfStars: Game.randomNumber(),
-    isAnswerCorrect: null,
     usedNumbers: [],
+    answerIsCorrect: null,
     redraws: 5,
     doneStatus: null
-  };
+  });
+  state = Game.initialState();
+  resetGame = () => this.setState(Game.initialState());
   selectNumber = clickedNumber => {
     // depends on the pervious state
     if (this.state.selectedNumbers.length === 2) {
@@ -110,26 +112,6 @@ export default class Game extends Component {
       }
     });
   };
-  // updateDoneStatus = () => {
-  //   this.setState(prevState => {
-  //     if (prevState.usedNumbers.length === 9) {
-  //       return {
-  //         doneStatus: 'Congrats. You won!'
-  //       };
-  //     } else if (prevState.redraws === 0 && !this.possibleSolutions()) {
-  //       return {
-  //         doneStatus: 'Game over. You lost.'
-  //       };
-  //     }
-  //   });
-  // };
-  // possibleSolutions = ({ randomNumberOfStars, usedNumbers }) => {
-  //   const possibleNumbers = _.range(1, 10).filter(
-  //     number => usedNumbers.indexOf(number) === -1
-  //   );
-
-  //   return possibleCombinationSum(possibleNumbers, randomNumberOfStars);
-  // };
   render() {
     // destructure
     const {
@@ -159,7 +141,7 @@ export default class Game extends Component {
           />
         </div>
         {doneStatus ? (
-          <DoneFrame doneStatus={doneStatus} />
+          <DoneFrame doneStatus={doneStatus} resetGame={this.resetGame} />
         ) : (
           <Numbers
             selectedNumbers={selectedNumbers}
