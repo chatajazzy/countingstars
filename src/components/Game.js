@@ -4,6 +4,34 @@ import Button from './Button';
 import Answer from './Answer';
 import Numbers from './Numbers';
 import DoneFrame from './DoneFrame';
+import _ from 'lodash';
+
+var possibleCombinationSum = function(arr, n) {
+  if (arr.indexOf(n) >= 0) {
+    return true;
+  }
+  if (arr[0] > n) {
+    return false;
+  }
+  if (arr[arr.length - 1] > n) {
+    arr.pop();
+    return possibleCombinationSum(arr, n);
+  }
+  var listSize = arr.length,
+    combinationsCount = 1 << listSize;
+  for (var i = 1; i < combinationsCount; i++) {
+    var combinationSum = 0;
+    for (var j = 0; j < listSize; j++) {
+      if (i & (1 << j)) {
+        combinationSum += arr[j];
+      }
+    }
+    if (n === combinationSum) {
+      return true;
+    }
+  }
+  return false;
+};
 
 export default class Game extends Component {
   static randomNumber = () => 1 + Math.floor(Math.random() * 9);
@@ -13,7 +41,7 @@ export default class Game extends Component {
     isAnswerCorrect: null,
     usedNumbers: [],
     redraws: 5,
-    doneStatus: 'Game Over'
+    doneStatus: null
   };
   selectNumber = clickedNumber => {
     // depends on the pervious state
@@ -42,21 +70,66 @@ export default class Game extends Component {
     }));
   };
   acceptAnswer = () => {
-    this.setState(prevState => ({
-      usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
-      selectedNumbers: [],
-      isAnswerCorrect: null,
-      randomNumberOfStars: Game.randomNumber()
-    }));
+    this.setState(
+      prevState => ({
+        usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
+        selectedNumbers: [],
+        isAnswerCorrect: null,
+        randomNumberOfStars: Game.randomNumber()
+      }),
+      this.updateDoneStatus
+    );
   };
   redraw = () => {
-    this.setState(prevState => ({
-      selectedNumbers: [],
-      isAnswerCorrect: null,
-      randomNumberOfStars: Game.randomNumber(),
-      redraws: prevState.redraws - 1
-    }));
+    this.setState(
+      prevState => ({
+        selectedNumbers: [],
+        isAnswerCorrect: null,
+        randomNumberOfStars: Game.randomNumber(),
+        redraws: prevState.redraws - 1
+      }),
+      this.updateDoneStatus
+    );
   };
+  possibleSolutions = ({ randomNumberOfStars, usedNumbers }) => {
+    const possibleNumbers = _.range(1, 10).filter(
+      number => usedNumbers.indexOf(number) === -1
+    );
+
+    return possibleCombinationSum(possibleNumbers, randomNumberOfStars);
+  };
+  updateDoneStatus = () => {
+    this.setState(prevState => {
+      if (prevState.usedNumbers.length === 9) {
+        return { doneStatus: 'Congrats. You won!' };
+      } else if (
+        prevState.redraws === 0 &&
+        !this.possibleSolutions(prevState)
+      ) {
+        return { doneStatus: 'Game over. You lost.' };
+      }
+    });
+  };
+  // updateDoneStatus = () => {
+  //   this.setState(prevState => {
+  //     if (prevState.usedNumbers.length === 9) {
+  //       return {
+  //         doneStatus: 'Congrats. You won!'
+  //       };
+  //     } else if (prevState.redraws === 0 && !this.possibleSolutions()) {
+  //       return {
+  //         doneStatus: 'Game over. You lost.'
+  //       };
+  //     }
+  //   });
+  // };
+  // possibleSolutions = ({ randomNumberOfStars, usedNumbers }) => {
+  //   const possibleNumbers = _.range(1, 10).filter(
+  //     number => usedNumbers.indexOf(number) === -1
+  //   );
+
+  //   return possibleCombinationSum(possibleNumbers, randomNumberOfStars);
+  // };
   render() {
     // destructure
     const {
