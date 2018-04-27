@@ -123,8 +123,8 @@ export default class Game extends Component {
       doneStatus
     } = this.state;
     return (
-      <div>
-        <h3>Play a game</h3>
+      <div className="game__panel">
+        <h3 className="game__title">Play a game</h3>
         <div className="game__top">
           <Stars randomNumberOfStars={randomNumberOfStars} />
           <Button
