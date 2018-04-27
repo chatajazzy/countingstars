@@ -3,6 +3,7 @@ import Stars from './Stars';
 import Button from './Button';
 import Answer from './Answer';
 import Numbers from './Numbers';
+import DoneFrame from './DoneFrame';
 
 export default class Game extends Component {
   static randomNumber = () => 1 + Math.floor(Math.random() * 9);
@@ -11,7 +12,8 @@ export default class Game extends Component {
     randomNumberOfStars: Game.randomNumber(),
     isAnswerCorrect: null,
     usedNumbers: [],
-    redraws: 5
+    redraws: 5,
+    doneStatus: 'Game Over'
   };
   selectNumber = clickedNumber => {
     // depends on the pervious state
@@ -62,7 +64,8 @@ export default class Game extends Component {
       randomNumberOfStars,
       isAnswerCorrect,
       usedNumbers,
-      redraws
+      redraws,
+      doneStatus
     } = this.state;
     return (
       <div>
@@ -82,11 +85,15 @@ export default class Game extends Component {
             unselectNumber={this.unselectNumber}
           />
         </div>
-        <Numbers
-          selectedNumbers={selectedNumbers}
-          usedNumbers={usedNumbers}
-          selectNumber={this.selectNumber}
-        />
+        {doneStatus ? (
+          <DoneFrame doneStatus={doneStatus} />
+        ) : (
+          <Numbers
+            selectedNumbers={selectedNumbers}
+            usedNumbers={usedNumbers}
+            selectNumber={this.selectNumber}
+          />
+        )}
       </div>
     );
   }
