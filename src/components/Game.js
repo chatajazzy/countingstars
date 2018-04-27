@@ -9,7 +9,7 @@ export default class Game extends Component {
     return (
       <div>
         <h3>Play a game</h3>
-        <div>
+        <div className="game__top">
           <Stars />
           <Button />
           <Answer />
