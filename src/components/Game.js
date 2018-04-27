@@ -5,11 +5,13 @@ import Answer from './Answer';
 import Numbers from './Numbers';
 
 export default class Game extends Component {
+  static randomNumber = () => 1 + Math.floor(Math.random() * 9);
   state = {
     selectedNumbers: [],
-    randomNumberOfStars: Math.floor(Math.random() * 9),
+    randomNumberOfStars: Game.randomNumber(),
     isAnswerCorrect: null,
-    usedNumbers: []
+    usedNumbers: [],
+    redraws: 5
   };
   selectNumber = clickedNumber => {
     // depends on the pervious state
@@ -42,7 +44,15 @@ export default class Game extends Component {
       usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
       selectedNumbers: [],
       isAnswerCorrect: null,
-      randomNumberOfStars: Math.floor(Math.random() * 9)
+      randomNumberOfStars: Game.randomNumber()
+    }));
+  };
+  redraw = () => {
+    this.setState(prevState => ({
+      selectedNumbers: [],
+      isAnswerCorrect: null,
+      randomNumberOfStars: Game.randomNumber(),
+      redraws: prevState.redraws - 1
     }));
   };
   render() {
@@ -51,7 +61,8 @@ export default class Game extends Component {
       selectedNumbers,
       randomNumberOfStars,
       isAnswerCorrect,
-      usedNumbers
+      usedNumbers,
+      redraws
     } = this.state;
     return (
       <div>
@@ -63,6 +74,8 @@ export default class Game extends Component {
             isAnswerCorrect={isAnswerCorrect}
             checkAnswer={this.checkAnswer}
             acceptAnswer={this.acceptAnswer}
+            redraw={this.redraw}
+            redraws={redraws}
           />
           <Answer
             selectedNumbers={selectedNumbers}

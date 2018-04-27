@@ -25,7 +25,14 @@ const Button = props => {
       );
       break;
   }
-  return <div>{button}</div>;
+  return (
+    <div>
+      {button}
+      <button onClick={props.redraw} disabled={props.redraws === 0}>
+        refresh
+      </button>
+    </div>
+  );
 };
 
 export default Button;
