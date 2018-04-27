@@ -8,7 +8,8 @@
 .numbers {
   text-align: center;
 }
-.numbers span {
+.numbers span,
+.answer span {
   cursor: pointer;
   display: inline-block;
   margin: 10px;

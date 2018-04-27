@@ -18,6 +18,15 @@ export default class Game extends Component {
       selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
     }));
   };
+  unselectNumber = clickedNumber => {
+    // depends on the pervious state
+    this.setState(prevState => ({
+      selectedNumbers: prevState.selectedNumbers.filter(number => {
+        return number !== clickedNumber;
+      })
+    }));
+  };
+
   render() {
     return (
       <div>
@@ -25,7 +34,10 @@ export default class Game extends Component {
         <div className="game__top">
           <Stars randomNumberOfStars={this.state.randomNumberOfStars} />
           <Button />
-          <Answer selectedNumbers={this.state.selectedNumbers} />
+          <Answer
+            selectedNumbers={this.state.selectedNumbers}
+            unselectNumber={this.unselectNumber}
+          />
         </div>
         <Numbers
           selectedNumbers={this.state.selectedNumbers}
