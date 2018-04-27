@@ -28,19 +28,21 @@ export default class Game extends Component {
   };
 
   render() {
+    // destructure
+    const { selectedNumbers, randomNumberOfStars } = this.state;
     return (
       <div>
         <h3>Play a game</h3>
         <div className="game__top">
-          <Stars randomNumberOfStars={this.state.randomNumberOfStars} />
-          <Button />
+          <Stars randomNumberOfStars={randomNumberOfStars} />
+          <Button selectedNumbers={selectedNumbers} />
           <Answer
-            selectedNumbers={this.state.selectedNumbers}
+            selectedNumbers={selectedNumbers}
             unselectNumber={this.unselectNumber}
           />
         </div>
         <Numbers
-          selectedNumbers={this.state.selectedNumbers}
+          selectedNumbers={selectedNumbers}
           selectNumber={this.selectNumber}
         />
       </div>
