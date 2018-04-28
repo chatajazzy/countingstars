@@ -4,5 +4,11 @@
   }
   &__btn {
     padding: 10px;
+    transition: all 0.3s;
+    &:hover,
+    &:active {
+      background: #000000;
+      color: #ffffff;
+    }
   }
 }
