@@ -2,9 +2,9 @@ import React from 'react';
 
 const DoneFrame = props => {
   return (
-    <div className="text-center">
-      <h2>{props.doneStatus}</h2>
-      <button className="btn" onClick={props.resetGame}>
+    <div className="done-frame">
+      <h2 className="done-frame__title">{props.doneStatus}</h2>
+      <button className="btn done-frame__btn" onClick={props.resetGame}>
         Play again
       </button>
     </div>
