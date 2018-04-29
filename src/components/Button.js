@@ -1,4 +1,8 @@
 import React from 'react';
+import correct from '../correct.svg';
+import incorrect from '../incorrect.svg';
+import reload from '../reload.svg';
+import equal from '../equal.svg';
 
 const Button = props => {
   let button;
@@ -6,12 +10,16 @@ const Button = props => {
     case true:
       button = (
         <button className="btn btn-correct" onClick={props.acceptAnswer}>
-          correct
+          <img className="btn__img" src={correct} />
         </button>
       );
       break;
     case false:
-      button = <button className="btn btn-incorrect">incorrect</button>;
+      button = (
+        <button className="btn btn-incorrect">
+          <img className="btn__img" src={incorrect} />
+        </button>
+      );
       break;
     default:
       button = (
@@ -20,7 +28,7 @@ const Button = props => {
           onClick={props.checkAnswer}
           disabled={props.selectedNumbers.length === 0}
         >
-          check
+          <img className="btn__img" src={equal} />
         </button>
       );
       break;
@@ -28,8 +36,12 @@ const Button = props => {
   return (
     <div>
       {button}
-      <button onClick={props.redraw} disabled={props.redraws === 0}>
-        refresh
+      <button
+        className="btn"
+        onClick={props.redraw}
+        disabled={props.redraws === 0}
+      >
+        <img className="btn__img" src={reload} />
       </button>
     </div>
   );
