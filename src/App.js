@@ -9,11 +9,12 @@ class App extends Component {
         <div id="stars" />
         <div id="stars2" />
         <div id="stars3" />
-
-        <header className="app__header">
-          <h1 className="app__title">Counting Stars</h1>
-        </header>
-        <Game />
+        <main className="main">
+          <header className="app__header">
+            <h1 className="app__title">Counting Stars</h1>
+          </header>
+          <Game />
+        </main>
       </div>
     );
   }
