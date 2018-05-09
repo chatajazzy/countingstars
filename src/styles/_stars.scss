@@ -1,9 +1,0 @@
-.stars {
-  max-width: 125px;
-  @include min-screen(500px) {
-    max-width: initial;
-  }
-  &__img {
-    width: 25px;
-  }
-}
